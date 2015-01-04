@@ -1,0 +1,58 @@
+10
+
+dir
+12
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0/trunk/src/plugins
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0
+
+
+
+2013-05-08T02:52:09.970779Z
+12
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9146bf36-3b9c-4897-be3f-e839ab1efe6d
+
+tree_viewer
+dir
+
+tree_viewer_interface
+dir
+
+selection_layer
+dir
+
+default_plugin
+dir
+
+compressed_alphabets
+dir
+
+secondary_structure
+dir
+
+column_match
+dir
+
+consensus_layer
+dir
+
+default_tree_view
+dir
+
+success_metrics
+dir
+

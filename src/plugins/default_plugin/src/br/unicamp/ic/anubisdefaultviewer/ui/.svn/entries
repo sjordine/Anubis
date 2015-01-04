@@ -1,0 +1,52 @@
+10
+
+dir
+14
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0/trunk/src/plugins/default_plugin/src/br/unicamp/ic/anubisdefaultviewer/ui
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0
+
+
+
+2013-05-08T23:26:24.564169Z
+14
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9146bf36-3b9c-4897-be3f-e839ab1efe6d
+
+columnViewer
+dir
+
+alignmentviewer
+dir
+
+sequenceLock
+dir
+
+alignmentdrawer
+dir
+
+fontmanagement
+dir
+
+menu
+dir
+
+statusbar
+dir
+
+sequenceViewer
+dir
+

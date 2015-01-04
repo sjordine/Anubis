@@ -1,0 +1,77 @@
+10
+
+dir
+15
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0/trunk/src/plugins/compressed_alphabets/src/br/unicamp/ic/anubis/compressedalphabets
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0
+
+
+
+2013-05-08T23:34:08.063124Z
+15
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9146bf36-3b9c-4897-be3f-e839ab1efe6d
+
+alphabets
+dir
+
+dataconnector
+dir
+
+CompressedAlphabetsPlugin.java
+file
+
+
+
+
+2012-12-15T11:51:41.000000Z
+b10d2551b235f4dd3af63cc769e9c151
+2013-05-08T23:34:08.063124Z
+15
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1260
+
+datarepository
+dir
+
+ui
+dir
+
+util
+dir
+

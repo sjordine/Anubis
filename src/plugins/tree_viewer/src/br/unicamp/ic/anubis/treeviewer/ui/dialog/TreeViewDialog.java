@@ -1,0 +1,273 @@
+package br.unicamp.ic.anubis.treeviewer.ui.dialog;
+
+import static br.unicamp.ic.anubis.treeviewer.common.CommonConstants.TREE_VIEW_MENU_ID;
+
+import java.awt.Container;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import br.unicamp.ic.anubis.treeviewer.controller.dialog.TreeViewDialogController;
+import br.unicamp.ic.anubis.treeviewer.controller.dialog.TreeViewDialogController.Layout;
+import br.unicamp.ic.anubis.ui.menu.MenuBuilder;
+import figtree.treeviewer.ExtendedTreeViewer;
+
+public class TreeViewDialog extends JDialog implements ActionListener, WindowListener {
+
+	private Container contentPane;
+	private ExtendedTreeViewer benchmarkView;
+	private ExtendedTreeViewer targetView;
+	private TreeViewDialogController controller;
+
+	private JButton btnRectilinear;
+	private JButton btnPolar;
+	private JButton btnRadial;
+	
+	private JComboBox cbAlgorithm;
+	private JComboBox cbDistanceMetrics;
+
+	public TreeViewDialog(JFrame frame) {
+		super(frame, "Tree View", Dialog.ModalityType.DOCUMENT_MODAL);
+		setBounds(100, 100, 1024, 768);
+		controller = new TreeViewDialogController();
+		
+		addWindowListener(this);
+		
+		//Set layout
+		contentPane = getContentPane();
+		GridBagLayout contentLayout = new GridBagLayout();		
+		contentLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		contentLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		contentLayout.columnWeights = new double[]{1, 0.0, 0.0, 0.0, 0.0, 1, 0.0, 0.0, 0.0, 0.0,  Double.MIN_VALUE};
+		contentLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		contentPane.setLayout(contentLayout);
+		
+		//Menu
+		this.setJMenuBar(MenuBuilder.build(TREE_VIEW_MENU_ID));
+		
+		//Method selection
+		JPanel pnlSelection = new JPanel();
+		pnlSelection.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JLabel lblAlgorithm = new JLabel("Algorithm:");
+		pnlSelection.add(lblAlgorithm);
+		cbAlgorithm = new JComboBox();
+		pnlSelection.add(cbAlgorithm);
+		JLabel lblMethods = new JLabel("Distance Method:");
+		pnlSelection.add(lblMethods);
+		cbDistanceMetrics = new JComboBox();
+		pnlSelection.add(cbDistanceMetrics);
+
+		
+		GridBagConstraints  contraints  = new GridBagConstraints();
+		contraints.anchor = GridBagConstraints.WEST;
+		contraints.insets = new Insets(0, 5, 5, 5);
+		contraints.gridwidth = 10;
+		contraints.fill = GridBagConstraints.BOTH;
+		contraints.gridx = 0;
+		contraints.gridy = 0;
+		contentPane.add(pnlSelection, contraints);
+		
+		//Labels
+		JLabel label = new JLabel("benchmark");
+		contraints = new GridBagConstraints();
+		contraints.anchor = GridBagConstraints.WEST;
+		contraints.insets = new Insets(0, 5, 5, 5);
+		contraints.gridx = 0;
+		contraints.gridy = 1;
+		contentPane.add(label, contraints);
+		
+		label = new JLabel("target");
+		contraints = new GridBagConstraints();
+		contraints.anchor = GridBagConstraints.WEST;
+		contraints.insets = new Insets(0, 5, 5, 5);
+		contraints.gridx = 5;
+		contraints.gridy = 1;
+		contentPane.add(label, contraints);
+		
+		//Tree Viewers
+		benchmarkView = new ExtendedTreeViewer(frame);
+		contraints = new GridBagConstraints();
+		contraints.gridwidth = 4;
+		contraints.insets = new Insets(5, 5, 5, 5);
+		contraints.fill = GridBagConstraints.BOTH;
+		contraints.gridx = 0;
+		contraints.gridy = 2;
+		contentPane.add(benchmarkView, contraints);
+		
+		targetView = new ExtendedTreeViewer(frame);
+		contraints = new GridBagConstraints();
+		contraints.gridwidth = 4;
+		contraints.insets = new Insets(5, 5, 5, 5);
+		contraints.fill = GridBagConstraints.BOTH;
+		contraints.gridx = 5;
+		contraints.gridy = 2;
+		contentPane.add(targetView, contraints);
+		
+		//Tree Layout buttons
+		JPanel buttonPnl = new JPanel();
+		buttonPnl.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		btnRectilinear = new JButton();		
+		Image btnIcon = Toolkit
+				.getDefaultToolkit()
+				.getImage(
+						getClass()
+								.getResource(
+										"/br/unicamp/ic/anubis/treeviewer/resources/rectilinear_16x16.png"));
+		if (btnIcon != null) {
+			btnRectilinear.setIcon(new ImageIcon(btnIcon));
+		}
+		btnRectilinear.setToolTipText("Rectilinear");
+		btnRectilinear.addActionListener(this);
+		buttonPnl.add(btnRectilinear);
+		
+		btnPolar = new JButton();
+		btnIcon = Toolkit
+				.getDefaultToolkit()
+				.getImage(
+						getClass()
+								.getResource(
+										"/br/unicamp/ic/anubis/treeviewer/resources/polar_16x16.png"));
+		if (btnIcon != null) {
+			btnPolar.setIcon(new ImageIcon(btnIcon));
+		}
+		btnPolar.setToolTipText("Polar");
+		btnPolar.addActionListener(this);
+		buttonPnl.add(btnPolar);
+		
+		btnRadial = new JButton();
+		btnIcon = Toolkit
+				.getDefaultToolkit()
+				.getImage(
+						getClass()
+								.getResource(
+										"/br/unicamp/ic/anubis/treeviewer/resources/radial_16x16.png"));
+		if (btnIcon != null) {
+			btnRadial.setIcon(new ImageIcon(btnIcon));
+		}
+		btnRadial.setToolTipText("Radial");
+		btnRadial.addActionListener(this);
+		buttonPnl.add(btnRadial);
+		
+		JSlider slZoom = new JSlider(JSlider.HORIZONTAL);
+		slZoom.setPreferredSize(new Dimension(200, 20));
+		slZoom.setMinimum(0);
+		slZoom.setMaximum(10);
+		slZoom.setValue(0);
+		slZoom.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent event) {
+				JSlider source = (JSlider)event.getSource();
+					  controller.setZoom(source.getValue());				
+			}
+		});
+		
+			
+		buttonPnl.add(slZoom);
+		
+		contraints = new GridBagConstraints();
+		contraints.anchor = GridBagConstraints.WEST;
+		contraints.insets = new Insets(0, 5, 5, 5);
+		contraints.gridwidth = 10;
+		contraints.fill = GridBagConstraints.BOTH;
+		contraints.gridx = 0;
+		contraints.gridy = 3;
+		contentPane.add(buttonPnl, contraints);
+					
+		controller.setBenchmarkView(benchmarkView);
+		controller.setTargetView(targetView);
+		controller.setAlgorithmComboBox(cbAlgorithm);
+		controller.setDistanceMethodComboBox(cbDistanceMetrics);
+		
+		controller.setPainters(benchmarkView,frame);
+		controller.setPainters(targetView,frame);
+	
+		cbAlgorithm.addItemListener(controller);
+		cbDistanceMetrics.addItemListener(controller);
+	}
+
+	public void showModal() {
+		controller.load();
+		controller.setupCombos();
+		setVisible(true);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent action) {
+		Object source = action.getSource();
+		if (source == btnRectilinear) {
+			controller.setLayout(Layout.RECTILINEAR);
+		}
+		if (source == btnPolar) {
+			controller.setLayout(Layout.POLAR);
+		}
+		if (source == btnRadial) {
+			controller.setLayout(Layout.RADIAL);
+		}
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		controller.unregisterEvents();
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

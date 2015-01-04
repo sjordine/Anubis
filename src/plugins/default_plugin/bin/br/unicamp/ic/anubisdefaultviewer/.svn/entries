@@ -1,0 +1,83 @@
+10
+
+dir
+14
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0/trunk/src/plugins/default_plugin/src/br/unicamp/ic/anubisdefaultviewer
+svn+ssh://sergioordine@svn.code.sf.net/p/anubisviewer/code-0
+
+
+
+2013-05-08T23:26:24.564169Z
+14
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9146bf36-3b9c-4897-be3f-e839ab1efe6d
+
+controller
+dir
+
+DefaultPlugin.java
+file
+
+
+
+
+2013-01-05T19:02:34.000000Z
+125ff2f42c1afcfb492b71842453045c
+2013-05-08T23:26:24.564169Z
+14
+sergioordine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2824
+
+dataconnector
+dir
+
+common
+dir
+
+datarepository
+dir
+
+resources
+dir
+
+score
+dir
+
+ui
+dir
+
